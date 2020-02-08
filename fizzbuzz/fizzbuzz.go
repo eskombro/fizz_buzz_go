@@ -5,21 +5,27 @@ import (
 	"strconv"
 )
 
-func Fizzbuzz(int1 int, int2 int, limit int, str1 string, str2 string) string {
+type FizzBuzzParams struct {
+	Int1  int    `json:"int1" form:"int1" param:"int1"`
+	Int2  int    `json:"int2" form:"int2" param:"int2"`
+	Limit int    `json:"limit" form:"limit" param:"limit"`
+	Str1  string `json:"str1" form:"str1" param:"str1"`
+	Str2  string `json:"str2" form:"str2" param:"str2"`
+}
+
+func Fizzbuzz(params FizzBuzzParams) string {
 	var ret string
-	i := 1
-	for i <= limit {
+	for i := 1; i <= params.Limit; i++ {
 		var result string
-		if i%int1 == 0 {
-			result = str1
+		if i%params.Int1 == 0 {
+			result = params.Str1
 		}
-		if i%int2 == 0 {
-			result += str2
+		if i%params.Int2 == 0 {
+			result += params.Str2
 		}
 		if len(result) == 0 {
 			result = strconv.Itoa(i)
 		}
-		i++
 		if len(ret) == 0 {
 			ret = result
 		} else {
