@@ -44,12 +44,10 @@ func getEnvVariables() {
 	if exists {
 		db.username = envUsername
 	}
-	log.Println(db.username)
 	envPassword, exists := os.LookupEnv("MONGODB_PASSWORD")
 	if exists {
 		db.password = envPassword
 	}
-	log.Println(db.password)
 }
 
 func ConnectDB() error {

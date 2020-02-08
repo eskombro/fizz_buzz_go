@@ -16,5 +16,10 @@ services:
             - MONGODB_PASSWORD=secret
         links:
             - db
-        ports:
-            - 8000:8000
+    nginx:
+      restart: always
+      build: ./nginx/
+      ports:
+        - "4242:80"
+      links:
+        - api
