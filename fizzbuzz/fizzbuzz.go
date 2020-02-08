@@ -32,5 +32,6 @@ func Fizzbuzz(params FizzBuzzParams) string {
 			ret = fmt.Sprintf("%s, %s", ret, result)
 		}
 	}
+	AddRequest(params)
 	return ret
 }
