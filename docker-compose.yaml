@@ -1,0 +1,20 @@
+version: '3'
+services:
+
+    db:
+        image: 'mongo'
+        environment:
+            - MONGO_INITDB_DATABASE=fizzbuzzdatabase
+            - MONGO_INITDB_ROOT_USERNAME=admin
+            - MONGO_INITDB_ROOT_PASSWORD=secret
+    api:
+        build: .
+        environment:
+            - MONGODB_HOST=db
+            - MONGODB_PORT=27017
+            - MONGODB_USERNAME=admin
+            - MONGODB_PASSWORD=secret
+        links:
+            - db
+        ports:
+            - 8000:8000

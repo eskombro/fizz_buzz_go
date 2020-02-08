@@ -2,50 +2,17 @@ package fizzbuzz
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"time"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"go.mongodb.org/mongo-driver/mongo/readpref"
 )
 
 type FizzBuzzStats struct {
 	Params FizzBuzzParams `json:"params" form:"params" param:"params"`
 	Count  int            `json:"count" form:"count" param:"count"`
-}
-
-var db MongoDB
-
-type MongoDB struct {
-	client     *mongo.Client
-	database   string
-	collection string
-	host       string
-	port       string
-}
-
-func ConnectDB() error {
-	db = MongoDB{
-		database:   "fizzbuzzdbTEST",
-		collection: "stats",
-		host:       "localhost",
-		port:       "27017",
-	}
-	log.Println("Connecting to DB")
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-	cl, err := mongo.Connect(ctx, options.Client().ApplyURI(
-		fmt.Sprintf("mongodb://%s:%s", db.host, db.port),
-	))
-	db.client = cl
-	if err != nil {
-		return err
-	}
-	err = db.client.Ping(ctx, readpref.Primary())
-	return err
 }
 
 func AddRequest(params FizzBuzzParams) {
