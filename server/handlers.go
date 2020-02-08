@@ -50,8 +50,12 @@ func fizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 func statsHandler(w http.ResponseWriter, r *http.Request) {
 	log.Println("New STATS request")
 	w.Header().Set("Content-Type", "application/json")
-	res := fb.GetMostFrequentRequest()
-	err := json.NewEncoder(w).Encode(res)
+	res, err := fb.GetMostFrequentRequest()
+	if err != nil {
+		_ = json.NewEncoder(w).Encode("Statistics are empty, no data found")
+		return
+	}
+	err = json.NewEncoder(w).Encode(res)
 	if err != nil {
 		http.Error(w, "Internal server error", http.StatusInternalServerError)
 	}

@@ -29,7 +29,7 @@ type MongoDB struct {
 
 func ConnectDB() error {
 	db = MongoDB{
-		database:   "fizzbuzzdb",
+		database:   "fizzbuzzdbTEST",
 		collection: "stats",
 		host:       "localhost",
 		port:       "27017",
@@ -44,7 +44,6 @@ func ConnectDB() error {
 	if err != nil {
 		return err
 	}
-
 	err = db.client.Ping(ctx, readpref.Primary())
 	return err
 }
@@ -60,17 +59,29 @@ func AddRequest(params FizzBuzzParams) {
 	var result FizzBuzzStats
 	r := collection.FindOne(ctx, bson.M{"params": stats.Params}).Decode(&result)
 	if r == mongo.ErrNoDocuments {
-		log.Println("Request doesn't exist. Adding it to DB")
+		log.Println("Request doesn't exist. Adding to DB:", stats)
 		addRequestDB(ctx, collection, stats)
 	} else {
+		result.Count++
 		log.Println("Request exists, updating count:", result)
 		updateRequestDB(ctx, collection, stats)
 	}
 }
 
-func GetMostFrequentRequest() FizzBuzzStats {
+func GetMostFrequentRequest() (FizzBuzzStats, error) {
+	collection := db.client.Database(db.database).Collection(db.collection)
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
 	stats := FizzBuzzStats{}
-	return stats
+	err := collection.FindOne(
+		ctx,
+		bson.M{},
+		&options.FindOneOptions{Sort: &bson.D{{"count", -1}}},
+	).Decode(&stats)
+	if err != nil {
+		log.Println(err)
+	}
+	return stats, err
 }
 
 func addRequestDB(ctx context.Context, collection *mongo.Collection, stats FizzBuzzStats) {
