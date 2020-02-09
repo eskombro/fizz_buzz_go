@@ -1,4 +1,4 @@
-package fizzbuzz
+package db
 
 import (
 	"context"
@@ -13,18 +13,18 @@ import (
 )
 
 type MongoDB struct {
-	client     *mongo.Client
-	database   string
-	collection string
+	Client     *mongo.Client
+	Database   string
+	Collection string
 	host       string
 	port       string
 	username   string
 	password   string
 }
 
-var db = MongoDB{
-	database:   "fizzbuzzdbTEST",
-	collection: "stats",
+var Dbconf = MongoDB{
+	Database:   "fizzbuzzdbTEST",
+	Collection: "stats",
 	host:       "localhost",
 	port:       "27017",
 	username:   "admin",
@@ -34,19 +34,19 @@ var db = MongoDB{
 func getEnvVariables() {
 	envHost, exists := os.LookupEnv("MONGODB_HOST")
 	if exists {
-		db.host = envHost
+		Dbconf.host = envHost
 	}
 	envPort, exists := os.LookupEnv("MONGODB_PORT")
 	if exists {
-		db.port = envPort
+		Dbconf.port = envPort
 	}
 	envUsername, exists := os.LookupEnv("MONGODB_USERNAME")
 	if exists {
-		db.username = envUsername
+		Dbconf.username = envUsername
 	}
 	envPassword, exists := os.LookupEnv("MONGODB_PASSWORD")
 	if exists {
-		db.password = envPassword
+		Dbconf.password = envPassword
 	}
 }
 
@@ -56,17 +56,17 @@ func ConnectDB() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	cl, err := mongo.Connect(ctx, options.Client().ApplyURI(
-		fmt.Sprintf("mongodb://%s:%s", db.host, db.port),
+		fmt.Sprintf("mongodb://%s:%s", Dbconf.host, Dbconf.port),
 	).SetAuth(options.Credential{
-		Username: db.username,
-		Password: db.password,
+		Username: Dbconf.username,
+		Password: Dbconf.password,
 	}))
-	db.client = cl
+	Dbconf.Client = cl
 	if err != nil {
 		log.Println(err)
 		return err
 	}
-	err = db.client.Ping(ctx, readpref.Primary())
+	err = Dbconf.Client.Ping(ctx, readpref.Primary())
 	if err != nil {
 		log.Println(err)
 		return err

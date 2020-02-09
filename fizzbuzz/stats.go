@@ -5,6 +5,8 @@ import (
 	"log"
 	"time"
 
+	"fizz_buzz_go/db"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -16,7 +18,7 @@ type FizzBuzzStats struct {
 }
 
 func AddRequest(params FizzBuzzParams) {
-	collection := db.client.Database(db.database).Collection(db.collection)
+	collection := db.Dbconf.Client.Database(db.Dbconf.Database).Collection(db.Dbconf.Collection)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	stats := FizzBuzzStats{
@@ -36,7 +38,7 @@ func AddRequest(params FizzBuzzParams) {
 }
 
 func GetMostFrequentRequest() (FizzBuzzStats, error) {
-	collection := db.client.Database(db.database).Collection(db.collection)
+	collection := db.Dbconf.Client.Database(db.Dbconf.Database).Collection(db.Dbconf.Collection)
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 	stats := FizzBuzzStats{}
