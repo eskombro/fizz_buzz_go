@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"bou.ke/monkey"
-	fb "fizz_buzz_go/fizzbuzz"
+	fb "github.com/eskombro/fizz_buzz_go/src/fizzbuzz"
 )
 
 func TestStartServer(t *testing.T) {

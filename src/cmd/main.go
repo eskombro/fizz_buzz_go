@@ -3,8 +3,8 @@ package main
 import (
 	"log"
 
-	"fizz_buzz_go/db"
-	"fizz_buzz_go/server"
+	"github.com/eskombro/fizz_buzz_go/src/db"
+	"github.com/eskombro/fizz_buzz_go/src/server"
 )
 
 func main() {

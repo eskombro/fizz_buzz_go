@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"fizz_buzz_go/db"
+	"github.com/eskombro/fizz_buzz_go/src/db"
 
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"

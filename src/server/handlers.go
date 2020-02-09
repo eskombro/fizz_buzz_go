@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	fb "fizz_buzz_go/fizzbuzz"
+	fb "github.com/eskombro/fizz_buzz_go/src/fizzbuzz"
 )
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
