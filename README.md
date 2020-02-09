@@ -35,6 +35,12 @@ Deployment built using **Docker**. Docker containers are:
 - **Go REST API** (based on gorilla-mux)
 - **MongoDB** for data persistence
 
+## Test it
+
+API is available at:
+
+http://51.75.23.195:4242/
+
 ## API Documentation
 
 ##### GET /
