@@ -1,4 +1,4 @@
-module github.com/eskombro/fizz_buzz_go
+module github.com/eskombro/fizz_buzz_go/src
 
 go 1.12
 
