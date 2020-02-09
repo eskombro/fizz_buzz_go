@@ -15,6 +15,12 @@ type FizzBuzzParams struct {
 
 func Fizzbuzz(params FizzBuzzParams) string {
 	var ret string
+	if params.Int1 <= 0 || params.Int2 <= 0 || params.Limit <= 0 {
+		return ret
+	}
+	if len(params.Str1) == 0 || len(params.Str2) == 0 {
+		return ret
+	}
 	for i := 1; i <= params.Limit; i++ {
 		var result string
 		if i%params.Int1 == 0 {
