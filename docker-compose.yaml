@@ -8,7 +8,7 @@ services:
             - MONGO_INITDB_ROOT_USERNAME=admin
             - MONGO_INITDB_ROOT_PASSWORD=secret
     api:
-        build: .
+        build: ./src
         environment:
             - MONGODB_HOST=db
             - MONGODB_PORT=27017
@@ -16,10 +16,15 @@ services:
             - MONGODB_PASSWORD=secret
         links:
             - db
+        depends_on:
+            - db
     nginx:
       restart: always
       build: ./nginx/
       ports:
         - "4242:80"
       links:
+        - api
+      depends_on:
+        - db
         - api
