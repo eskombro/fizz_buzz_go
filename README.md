@@ -37,7 +37,15 @@ Deployment built using **Docker**. Docker containers are:
 
 ## Test it
 
-API is available at:
+**CI** implemented with **github actions**. Every new 'push' will automatically run tests:
+
+[See FizzBuzz github actions](https://github.com/eskombro/fizz_buzz_go/actions)
+
+To manually run tests, use:  
+
+`cd fizz_buzz_go/src && go test -v ./...`
+
+API is available for test at:
 
 http://51.75.23.195:4242/
 

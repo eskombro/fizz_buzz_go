@@ -22,6 +22,8 @@ type MongoDB struct {
 	password   string
 }
 
+// Default values are overridden at build by environment variables
+// defined in the system. Currently defined in the docker-compose.yaml file
 var Dbconf = MongoDB{
 	Database:   "fizzbuzzdbTEST",
 	Collection: "stats",

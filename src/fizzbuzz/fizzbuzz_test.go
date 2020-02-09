@@ -1,6 +1,7 @@
 package fizzbuzz
 
 import (
+	"fmt"
 	"testing"
 
 	"bou.ke/monkey"
@@ -21,6 +22,8 @@ func TestFizzbuzz(t *testing.T) {
 		resp := Fizzbuzz(test)
 		if error_expect[i] != resp {
 			t.Errorf("Error FizzBuzz.\nExpected %s\nGot      %s", error_expect[i], resp)
+		} else {
+			fmt.Println("Test Error case OK: ", error_tests[i])
 		}
 	}
 
@@ -39,6 +42,8 @@ func TestFizzbuzz(t *testing.T) {
 		resp := Fizzbuzz(test)
 		if tests_expect[i] != resp {
 			t.Errorf("Error FizzBuzz.\nExpected %s\nGot      %s", tests_expect[i], resp)
+		} else {
+			fmt.Println("Test case OK: ", tests[i])
 		}
 	}
 }

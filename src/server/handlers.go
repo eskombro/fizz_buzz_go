@@ -35,7 +35,7 @@ func fizzBuzzHandler(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&params)
 	if err != nil {
 		log.Println("Error: ", err)
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, "Bad request: error in arguments", http.StatusBadRequest)
 		return
 	}
 	log.Println("Params:   ", params)
